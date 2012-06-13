@@ -7,11 +7,14 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
+    @movies = Movie.find(:all, :order => params[:sort_by].to_s)
+    @sort_by = params[:sort_by]
+    @all_ratings = Movie.all_ratings
   end
 
   def new
     # default: render 'new' template
+    @all_ratings = Movie.all_ratings
   end
 
   def create
@@ -22,6 +25,7 @@ class MoviesController < ApplicationController
 
   def edit
     @movie = Movie.find params[:id]
+    @all_ratings = Movie.all_ratings
   end
 
   def update

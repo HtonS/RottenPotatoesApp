@@ -7,6 +7,7 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @checked_ratings_param = params[:ratings]
     if params[:ratings] == nil
       @checked_ratings = nil
     else

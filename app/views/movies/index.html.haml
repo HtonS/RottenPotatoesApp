@@ -1,10 +1,11 @@
 -#  This file is app/views/movies/index.html.haml
 %h1 All Movies
-= form_tag movies_path(:sort => :title), :method => :get do
-  Include: 
+= form_tag movies_path, :method => :get do
+  Include:
+  = hidden_field_tag :sort_by, @sort_by 
   - @all_ratings.each do |rating|
     = rating
-    = check_box_tag "ratings[#{rating}]", 1, (@checked_ratings != nil and @checked_ratings.include?(rating)),  :id => 'ratings_#{rating}' 
+    = check_box_tag "ratings[#{rating}]", 1, ((@checked_ratings != nil and @checked_ratings.include?(rating)) or (@checked_ratings == nil)),  :id => 'ratings_#{rating}' 
   = submit_tag 'Refresh', :id => 'ratings_submit'
 %table#movies
   %thead

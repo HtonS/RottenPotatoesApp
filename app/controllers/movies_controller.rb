@@ -10,10 +10,11 @@ class MoviesController < ApplicationController
     @checked_ratings_param = params[:ratings]
     if params[:ratings] == nil
       @checked_ratings = nil
+      @movies = Movie.find(:all, :order => params[:sort_by].to_s)
     else
       @checked_ratings = params[:ratings].keys
+      @movies = Movie.find(:all, :order => params[:sort_by].to_s, :conditions => ["rating IN (?)", @checked_ratings])
     end
-    @movies = Movie.find(:all, :order => params[:sort_by].to_s, :conditions => ["rating IN (?)", @checked_ratings])
     @sort_by = params[:sort_by]
     @all_ratings = Movie.all_ratings
   end
